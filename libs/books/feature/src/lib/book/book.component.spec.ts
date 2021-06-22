@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Book } from '@tmo/shared/models';
 import { SharedTestingModule } from '@tmo/shared/testing';
 import { BooksFeatureModule } from '../books-feature.module';
-import { BookComponent } from './book.component';
+import { BookComponent } from './book.component'
 
 describe('BookComponent', () => {
   let debugEl: DebugElement;

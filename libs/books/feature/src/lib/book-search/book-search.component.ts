@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 })
 export class BookSearchComponent implements OnInit {
   books$: Observable<ReadingListBook[]> ;
+  term: string = '';
 
   searchForm = this.fb.group({
     term: ''
@@ -45,8 +46,9 @@ export class BookSearchComponent implements OnInit {
   }
 
   searchBooks() {
-    if (this.searchForm.value.term) {
-      this.store.dispatch(searchBooks({ term: this.searchTerm }));
+    // this.searchForm.value.term
+    if (this.term) {
+      this.store.dispatch(searchBooks({ term: this.term }));
     } else {
       this.store.dispatch(clearSearch());
     }
