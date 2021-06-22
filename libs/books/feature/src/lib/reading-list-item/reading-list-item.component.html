@@ -1,0 +1,19 @@
+<div>
+    <img class="reading-list-item--cover" [src]="readingListItem.coverUrl" />
+    </div>
+    <div class="reading-list-item--details">
+        <strong class="reading-list-item--details--title">{{ readingListItem.title }}</strong>
+        <div class="reading-list-item--details--author">
+            {{ readingListItem.authors.join(',') }}
+        </div>
+    </div>
+    <div>
+        <button
+        mat-icon-button
+        color="warn"
+        [attr.aria-label]="'Remove ' + readingListItem.title + ' from reading list'"
+        (click)="removeFromReadingList(readingListItem)"
+        >
+        <mat-icon>remove_circle</mat-icon>
+    </button>
+</div>

@@ -13,5 +13,6 @@ describe('When: Use the search feature', () => {
 
   xit('Then: I should see search results as I am typing', () => {
     // TODO: Implement this test!
+    // quitar form
   });
 });

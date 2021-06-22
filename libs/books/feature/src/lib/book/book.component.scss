@@ -1,9 +1,5 @@
 @import 'variables.scss';
 
-form {
-  margin-bottom: $spacing-xs;
-}
-
 .mat-form-field {
   width: 100%;
 }
@@ -58,15 +54,11 @@ form {
       bottom: 0;
       right: 0;
     }
-  }
-}
 
-.empty {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-  font-size: 1.5rem;
-  color: $pink-opaque;
+    button:focus {
+        background-color: $pink-accent;
+      }
+
+
+  }
 }

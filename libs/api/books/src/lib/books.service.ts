@@ -7,6 +7,11 @@ import { map } from 'rxjs/operators';
 export class BooksService {
   constructor(private readonly http: HttpService) {}
 
+  getBooksByTerm(term: string): any {
+    console.log('fda service books', term)
+    return this.http.get<Book[]>(`/api/books/search?q=${term}`)
+  }
+
   search(term: string): Observable<Book[]> {
     if (!term) {
       throw new Error('Missing serach term');

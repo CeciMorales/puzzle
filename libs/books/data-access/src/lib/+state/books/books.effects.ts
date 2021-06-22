@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Book } from '@tmo/shared/models';
+import { BooksService } from '../../../../../../api/books/src/lib/books.service';
 import * as BooksActions from './books.actions';
+
 
 @Injectable()
 export class BooksEffects {
@@ -22,6 +24,7 @@ export class BooksEffects {
 
   constructor(
     private readonly actions$: Actions,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    //private booksService: BooksService
   ) {}
 }
