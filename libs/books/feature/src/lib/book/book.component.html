@@ -13,14 +13,24 @@
         </div>
         <p [innerHTML]="book.description"></p>
         <div>
-        <button
+        <button *ngIf="!book.isAdded"
+            class="add-item-list"
             mat-flat-button
             color="primary"
             (click)="addBookToReadingList(book)"
-            [disabled]="book.isAdded"
             
         >
             Want to Read
+        </button>
+
+        <button *ngIf="book.isAdded"
+            class="undo-item-list"
+            mat-flat-button
+            color="warn"
+            (click)="removeFromReadingList(book)"
+    
+        >
+            Undo Action
         </button>
         </div>
     </div>

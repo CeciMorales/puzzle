@@ -9,6 +9,9 @@ import { ReadingListComponent } from './reading-list/reading-list.component';
 import { ReadingListItemComponent } from './reading-list-item/reading-list-item.component';
 import { BookComponent } from './book/book.component';
 import { UiSharedModule } from './ui-shared/ui-shared.module';
+import { BooksService } from 'libs/api/books/src/lib/books.service';
+import { UiService } from './ui.service';
+
 
 const EXPORTS = [
   BookSearchComponent,
