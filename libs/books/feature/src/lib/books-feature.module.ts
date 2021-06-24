@@ -9,6 +9,7 @@ import { ReadingListComponent } from './reading-list/reading-list.component';
 import { ReadingListItemComponent } from './reading-list-item/reading-list-item.component';
 import { BookComponent } from './book/book.component';
 import { UiSharedModule } from './ui-shared/ui-shared.module';
+import { FinishedStatePipe } from './finished-state.pipe';
 
 const EXPORTS = [
   BookSearchComponent,
@@ -30,6 +31,6 @@ const EXPORTS = [
     BooksDataAccessModule
   ],
   exports: [...EXPORTS],
-  declarations: [...EXPORTS]
+  declarations: [...EXPORTS, FinishedStatePipe]
 })
 export class BooksFeatureModule {}

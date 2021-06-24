@@ -17,9 +17,10 @@
 </form>
 
 <ng-container *ngIf="searchTerm; else empty">
+
   <div class="book-grid">
     <div class="book" data-testing="book-item" *ngFor="let book of books$ | async">
-      <tmo-book [book]="book"></tmo-book>
+      <tmo-book [book]="book" [finished]="(book.id | finishedState) | async"></tmo-book>
     </div>
   </div>
 </ng-container>

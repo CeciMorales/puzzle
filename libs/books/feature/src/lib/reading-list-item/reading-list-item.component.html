@@ -15,5 +15,31 @@
         (click)="removeFromReadingList(readingListItem)"
         >
         <mat-icon>remove_circle</mat-icon>
-    </button>
+        </button>
+
+
+        <button *ngIf="!readingListItem.finished"
+        mat-icon-button
+        color="primary"
+        class="mark-as-finished"
+        [attr.aria-label]="'Mark as finished ' + readingListItem.title + ' from reading list'"
+        (click)="updateFromReadingList(readingListItem)"
+        >
+        <mat-icon>check_circle_outline</mat-icon>
+        </button>
+
+        <div class="reading-list-item--finished" *ngIf="readingListItem.finished">
+            <button 
+            mat-icon-button
+            color="primary"
+            [attr.aria-label]="readingListItem.title + ' is finished'"
+            (click)="checkInfo(readingListItem)"
+            >
+            <mat-icon>star</mat-icon>
+            </button>
+
+            <p>
+                finished date: {{ readingListItem.finishedDate | date }}
+            </p>
+        </div>
 </div>

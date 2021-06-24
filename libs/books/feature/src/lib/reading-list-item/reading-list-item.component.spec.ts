@@ -20,7 +20,7 @@ describe('ReadingListItemComponent', () => {
     isAdded: false,
     publishedDate: "2000-01-01T00:00:00.000Z",
     publisher: "Ediciones ENI",
-    title: "JavaScript y VBScript"
+    title: "JavaScript y VBScript",
   }
 
   beforeEach(waitForAsync(() => {

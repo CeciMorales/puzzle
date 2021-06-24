@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as ReadingListActions from './reading-list.actions';
-import { ReadingListItem } from '@tmo/shared/models';
+import { Book, ReadingListItem } from '@tmo/shared/models';
 
 export const READING_LIST_FEATURE_KEY = 'readingList';
 
@@ -23,7 +23,8 @@ export const readingListAdapter: EntityAdapter<ReadingListItem> = createEntityAd
 
 export const initialState: State = readingListAdapter.getInitialState({
   loaded: false,
-  error: null
+  error: null,
+  selectedBook: null
 });
 
 const readingListReducer = createReducer(
@@ -32,33 +33,73 @@ const readingListReducer = createReducer(
     return {
       ...state,
       loaded: false,
-      error: null
+      error: null,
+      selectedBook: null
     };
   }),
+
   on(ReadingListActions.loadReadingListSuccess, (state, action) => {
     return readingListAdapter.setAll(action.list, {
       ...state,
       loaded: true
     });
   }),
+
   on(ReadingListActions.loadReadingListError, (state, action) => {
     return {
       ...state,
       error: action.error
     };
   }),
+
   on(ReadingListActions.addToReadingList, (state, action) =>
-    readingListAdapter.addOne({ bookId: action.book.id, ...action.book }, state)
+    readingListAdapter.addOne({ 
+      bookId: action.book.id,
+      ...action.book,
+      //
+    }, state)
   ),
+
   on(ReadingListActions.removeFromReadingList, (state, action) =>
-    readingListAdapter.removeOne(action.item.bookId, state)
+    readingListAdapter.removeOne(
+      action.item.bookId, 
+      state
+    )
   ),
+
   on(ReadingListActions.failedAddToReadingList, (state, action) => {
-    return readingListAdapter.removeOne(action.book.id, state)
+    return readingListAdapter.removeOne(
+      action.book.id, 
+      state
+    )
   }),
+
   on(ReadingListActions.failedRemoveFromReadingList, (state, action) => {
-    return readingListAdapter.addOne({ bookId: action.item.bookId, ...action.item }, state)
+    return readingListAdapter.addOne({ 
+      bookId: action.item.bookId, 
+      ...action.item 
+    }, state)
+  }),
+
+  on(ReadingListActions.updateFinishedBookFromReadingList, (state, action) => {
+    return readingListAdapter.updateOne(
+      {
+        id: action.item.bookId, 
+        changes: { 
+          finished: true, 
+          finishedDate: action.currentTime,
+          ...action.item}
+      }, state
+    )
+    }
+  ),
+
+  // ! agregar failed
+  on(ReadingListActions.failedUpdateFromReadingList, (state, action) => {
+    console.log('failed to update reading list item')
+    return null;
   })
+
 );
 
 export function reducer(state: State | undefined, action: Action) {

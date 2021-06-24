@@ -1,6 +1,6 @@
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty">
   <div class="reading-list-item" *ngFor="let readingListItem of readingList$ | async">
-    <tmo-reading-list-item [readingListItem]="readingListItem"></tmo-reading-list-item>
+      <tmo-reading-list-item [readingListItem]="readingListItem"></tmo-reading-list-item>
   </div>
 </ng-container>
 <ng-template #empty>

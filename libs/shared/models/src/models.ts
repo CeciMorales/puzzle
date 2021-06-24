@@ -7,12 +7,12 @@ export interface Book {
   publishedDate?: string;
   coverUrl?: string;
   isAdded?: boolean;
+  finished?: boolean;
 
 }
 
 export interface ReadingListItem extends Omit<Book, 'id'> {
   bookId: string;
-  finished?: boolean;
   finishedDate?: string;
   
 }

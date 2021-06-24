@@ -2,6 +2,7 @@
     {{ book.title }}
     </div>
     <div class="book--content">
+    
     <div class="book--content--cover">
         <img src="{{ book.coverUrl }}" />
     </div>
@@ -9,19 +10,30 @@
         <div><strong>Author:</strong> {{ book.authors.join(',') }}</div>
         <div><strong>Publisher:</strong> {{ book.publisher }}</div>
         <div>
-        <strong>Published:</strong> {{ book.publishedDate | date: 'dd/MM/yyyy' }}
+        <strong>Published:</strong> {{ book.publishedDate | date  }}
         </div>
         <p [innerHTML]="book.description"></p>
         <div>
-        <button
-            mat-flat-button
-            color="primary"
-            (click)="addBookToReadingList(book)"
-            [disabled]="book.isAdded"
             
-        >
-            Want to Read
-        </button>
+                
+            <button *ngIf="!finished || finished == null"
+                mat-flat-button
+                color="primary"
+                class="add-item-list"
+                (click)="addBookToReadingList(book)"
+                [disabled]="book.isAdded"
+
+                >
+                    Want to Read
+            </button>
+    
+            <button *ngIf="finished"
+                mat-flat-button
+                color="warn"   
+                >
+                    Finished
+            </button>
+
         </div>
     </div>
 </div>
