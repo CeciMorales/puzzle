@@ -1,10 +1,17 @@
 <div class="action-message">
     <p *ngIf="dataReceived.action ===  'added'">
-        <strong> {{ dataReceived.message }} </strong>  was added to the raeding list
+        <strong> {{ dataReceived.item.title }} </strong>  was added to the reading list
     </p>
     
     <p *ngIf="dataReceived.action ===  'removed'">
-        <strong> {{ dataReceived.message }} </strong> was removed from the reading list
+        <strong> {{ dataReceived.item.title }} </strong> was removed from the reading list
     </p>
+    
+    <button
+        mat-raised-button
+        color="accent"
+        (click)="undoAction()"
+    >undo
+    </button>
 </div>
 

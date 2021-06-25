@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map } from 'rxjs/operators';
+import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
 import { ReadingListItem } from '@tmo/shared/models';
 import * as ReadingListActions from './reading-list.actions';
+import { UiService } from 'libs/books/feature/src/lib/ui.service';
 
 @Injectable()
 export class ReadingListEffects implements OnInitEffects {
@@ -54,9 +55,35 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  messageActionConfirmedAdd$ = createEffect(() => {
+    return this.actions$.pipe(
+        ofType(ReadingListActions.confirmedAddToReadingList),
+        
+        tap(action => {
+            this.uiService.openActionMessage(action.book, "added");
+        })
+
+    )
+}, {dispatch: false});
+
+  messageActionConfirmedRemove$ = createEffect(() => {
+    return this.actions$.pipe(
+        ofType(ReadingListActions.confirmedRemoveFromReadingList),
+        
+        tap(action => {
+            this.uiService.openActionMessage(action.item, "removed");
+        })
+
+    )
+  }, {dispatch: false});
+
   ngrxOnInitEffects() {
     return ReadingListActions.init();
   }
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(
+    private actions$: Actions, 
+    private http: HttpClient,
+    private uiService: UiService
+    ) {}
 }

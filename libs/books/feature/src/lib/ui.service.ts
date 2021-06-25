@@ -22,11 +22,11 @@ export class UiService {
       this.drawer.toggle();
   }
 
-  openActionMessage(message: string, action: string) {
+  openActionMessage(item: any, action: string) {
     this._snackBar.openFromComponent(ActionMessageComponent, {
       duration: 4000,
       data: {
-        message: message,
+        item: item,
         action: action
       }
     })
