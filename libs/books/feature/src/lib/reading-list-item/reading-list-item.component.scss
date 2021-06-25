@@ -37,6 +37,11 @@
     white-space: nowrap;
 }
 
+.reading-list-item--actions {
+    display: contents;
+
+}
+
 .reading-list-item--finished {
-    background-color: aqua;
+    display: contents;
 }
