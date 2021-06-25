@@ -1,0 +1,10 @@
+<div class="action-message">
+    <p *ngIf="dataReceived.action ===  'added'">
+        <strong> {{ dataReceived.message }} </strong>  was added to the raeding list
+    </p>
+    
+    <p *ngIf="dataReceived.action ===  'removed'">
+        <strong> {{ dataReceived.message }} </strong> was removed from the reading list
+    </p>
+</div>
+

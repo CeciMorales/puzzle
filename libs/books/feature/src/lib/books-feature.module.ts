@@ -11,6 +11,7 @@ import { BookComponent } from './book/book.component';
 import { UiSharedModule } from './ui-shared/ui-shared.module';
 import { BooksService } from 'libs/api/books/src/lib/books.service';
 import { UiService } from './ui.service';
+import { ActionMessageComponent } from './action-message/action-message.component';
 
 
 const EXPORTS = [
@@ -33,6 +34,6 @@ const EXPORTS = [
     BooksDataAccessModule
   ],
   exports: [...EXPORTS],
-  declarations: [...EXPORTS]
+  declarations: [...EXPORTS, ActionMessageComponent]
 })
 export class BooksFeatureModule {}

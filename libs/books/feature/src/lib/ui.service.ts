@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActionMessageComponent } from './action-message/action-message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,9 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class UiService {
   private drawer: MatDrawer;
 
-  constructor() { }
-
-  hola() {
-    console.log('holaaaa');
-  }
+  constructor(
+    private _snackBar: MatSnackBar
+  ) { }
 
   setDrawer(drawer: MatDrawer) {
     this.drawer = drawer;
@@ -21,5 +20,15 @@ export class UiService {
 
   toggle(): void {
       this.drawer.toggle();
+  }
+
+  openActionMessage(message: string, action: string) {
+    this._snackBar.openFromComponent(ActionMessageComponent, {
+      duration: 4000,
+      data: {
+        message: message,
+        action: action
+      }
+    })
   }
 }

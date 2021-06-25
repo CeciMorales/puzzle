@@ -18,10 +18,10 @@ describe('When: I use the reading list feature', () => {
     cy.get('[data-testing="book-item"]').should('have.length.greaterThan', 1);
 
     cy.get('.add-item-list').first().click();
-    cy.get('.close-drawer').click();
+    cy.get('body').get('.action-message')
 
     cy.get('.undo-item-list').first().click();
-    cy.get('.close-drawer').click();
+    cy.get('body').get('.action-message')
 
     cy.get('.book').first().contains('Want to Read')
 

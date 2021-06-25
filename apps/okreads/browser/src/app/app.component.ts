@@ -10,13 +10,13 @@ import { UiService } from 'libs/books/feature/src/lib/ui.service';
 export class AppComponent {
 
   constructor(
-    private uiService: UiService
+    //private uiService: UiService
   ) {
 
   }
-  @ViewChild('drawer') public drawer: MatDrawer;
+  //@ViewChild('drawer') public drawer: MatDrawer;
 
   ngAfterViewInit() {
-    this.uiService.setDrawer(this.drawer);
+    //this.uiService.setDrawer(this.drawer);
   }
 }
