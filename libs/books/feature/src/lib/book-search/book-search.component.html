@@ -1,12 +1,11 @@
-<form [formGroup]="searchForm" >
+<form >
   <mat-form-field floatLabel="never">
     <input
       autoFocus
       matInput
       type="search"
       placeholder="Search for books to add to your reading list"
-      formControlName="term"
-      [(ngModel)]="term"
+      [formControl]="term"
     />
     <button 
       mat-icon-button matSuffix
@@ -17,7 +16,7 @@
   </mat-form-field>
 </form>
 
-<ng-container *ngIf="term; else empty">
+<ng-container *ngIf="term.value; else empty">
   <div class="book-grid">
     <div class="book" data-testing="book-item" *ngFor="let book of books$ | async">
       <tmo-book [book]="book"></tmo-book>
