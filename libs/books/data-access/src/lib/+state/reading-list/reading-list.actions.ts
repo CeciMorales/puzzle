@@ -28,7 +28,7 @@ export const confirmedAddToReadingList = createAction(
 );
 
 export const removeFromReadingList = createAction(
-  '[Books Search Results] Remove from list',
+  '[Reading List API] Remove from list',
   props<{ item: ReadingListItem }>()
 );
 
