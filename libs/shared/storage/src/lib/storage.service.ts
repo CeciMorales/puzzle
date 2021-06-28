@@ -37,4 +37,5 @@ export class StorageService<T extends object = any> {
   private writeToStorage() {
     this.storage.setItem(this.key, JSON.stringify(this.state));
   }
+
 }

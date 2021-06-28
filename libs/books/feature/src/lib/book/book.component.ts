@@ -36,7 +36,4 @@ export class BookComponent implements OnInit {
     this.store.dispatch(removeFromReadingList({ item }));
     
   }
-
-  
-
 }

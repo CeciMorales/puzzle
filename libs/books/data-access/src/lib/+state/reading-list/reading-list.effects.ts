@@ -30,7 +30,10 @@ export class ReadingListEffects implements OnInitEffects {
       ofType(ReadingListActions.addToReadingList),
       concatMap(({ book }) =>
         this.http.post('/api/reading-list', book).pipe(
-          map(() => ReadingListActions.confirmedAddToReadingList({ book })),
+
+          map(() => {
+          return ReadingListActions.confirmedAddToReadingList({ book })
+        }),
           catchError(() =>
             of(ReadingListActions.failedAddToReadingList({ book }))
           )
@@ -44,9 +47,10 @@ export class ReadingListEffects implements OnInitEffects {
       ofType(ReadingListActions.removeFromReadingList),
       concatMap(({ item }) =>
         this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
-          map(() =>
-            ReadingListActions.confirmedRemoveFromReadingList({ item })
-          ),
+
+          map(() => {
+            return ReadingListActions.confirmedRemoveFromReadingList({ item })
+          }),
           catchError(() =>
             of(ReadingListActions.failedRemoveFromReadingList({ item }))
           )
@@ -55,11 +59,13 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  /*
   messageActionConfirmedAdd$ = createEffect(() => {
     return this.actions$.pipe(
         ofType(ReadingListActions.confirmedAddToReadingList),
         
         tap(action => {
+            console.log('confirmado de add');
             this.uiService.openActionMessage(action.book, "added");
         })
 
@@ -76,6 +82,7 @@ export class ReadingListEffects implements OnInitEffects {
 
     )
   }, {dispatch: false});
+  */
 
   ngrxOnInitEffects() {
     return ReadingListActions.init();
@@ -84,7 +91,6 @@ export class ReadingListEffects implements OnInitEffects {
   constructor(
     private actions$: Actions, 
     private http: HttpClient,
-    private uiService: UiService
     ) {}
 }
 

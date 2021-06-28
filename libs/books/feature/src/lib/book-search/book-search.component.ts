@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   addToReadingList,
   clearSearch,
   getAllBooks,
   ReadingListBook,
-  searchBooks
+  searchBooks,
+  confirmedAddToReadingList
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Book } from '@tmo/shared/models';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Actions, ofType } from '@ngrx/effects';
+import { UiService } from '../ui.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'tmo-book-search',
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.scss']
 })
-export class BookSearchComponent implements OnInit {
-  books$: Observable<ReadingListBook[]> ;
+export class BookSearchComponent implements OnInit, OnDestroy {
+  books$: Observable<ReadingListBook[]>;
+  destroyed$ = new Subject<boolean>();
 
   searchForm = this.fb.group({
     term: ''
@@ -26,9 +31,21 @@ export class BookSearchComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly fb: FormBuilder,
+    public updates$: Actions,
+    private uiService: UiService
     
   ) {
     this.books$ = this.store.select(getAllBooks)
+
+    updates$.pipe(
+      ofType(confirmedAddToReadingList),
+      // take until this.destroyed$ === false
+      takeUntil(this.destroyed$)
+    )
+    .subscribe((item) => {
+      this.uiService.openActionMessage(item.book, "added")
+
+    });
   }
 
   get searchTerm(): string {
@@ -50,5 +67,10 @@ export class BookSearchComponent implements OnInit {
     } else {
       this.store.dispatch(clearSearch());
     }
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
