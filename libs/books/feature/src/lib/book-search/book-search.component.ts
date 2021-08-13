@@ -20,7 +20,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class BookSearchComponent implements OnInit {
   books$: Observable<ReadingListBook[]> ;
 
-  term = new FormControl('');
+  searchForm = new FormGroup({
+    term: new FormControl('')
+
+  })
+  
 
   constructor(
     private readonly store: Store,
@@ -28,7 +32,7 @@ export class BookSearchComponent implements OnInit {
   ) {
     this.books$ = this.store.select(getAllBooks)
 
-    this.term.valueChanges
+    this.searchForm.get('term').valueChanges
     .pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -38,7 +42,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   get searchTerm(): string {
-    return this.term.value
+    return this.searchForm.get('term').value
   }
 
   ngOnInit(): void {
@@ -46,7 +50,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   searchExample() {
-    this.term.setValue('javascript');
+    this.searchForm.get('term').setValue('javascript');
     this.searchBooks();
   }
 
